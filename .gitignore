@@ -1,4 +1,7 @@
 *.root
 *.h5
 *~
+*.pyc
 data/
+slurm/
+logs/
