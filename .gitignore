@@ -2,6 +2,8 @@
 *.h5
 *~
 *.pyc
+*.npy
+setup.sh
 data/
 slurm/
 logs/

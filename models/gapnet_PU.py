@@ -149,7 +149,6 @@ def get_model(point_cloud, is_training, num_class,global_pl,params,
 
 
 def get_loss(seg_pred, seg):
-    #print(seg_pred.shape(), "NEEEEEEEEt")
     loss_per_part = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=seg_pred, labels=seg)
     per_instance_seg_loss = tf.reduce_mean(loss_per_part, axis=1)
     seg_loss = tf.reduce_mean(per_instance_seg_loss)  
