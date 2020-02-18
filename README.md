@@ -54,7 +54,7 @@ python train.py  --data_dir ../data/PU/  --log_dir pu_test
 
 To evaluate the training use:
 ```bash
-python evaluate.py  --data_dir ../data/PU --model_path ../logs/ou_test --batch 500 --name qg_test 
+python evaluate.py  --data_dir ../data/PU --model_path ../logs/ou_test --batch 500 --name pu_test 
 ```
 
 
