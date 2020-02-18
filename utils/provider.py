@@ -29,7 +29,6 @@ def load_add(h5_filename,names=[]):
   f = h5py.File(h5_filename,'r')
   if len(names) ==0:
     names = list(f.keys())
-    print ("Additional distributions: ",names)
     names.remove('data')
     names.remove('pid')
 
