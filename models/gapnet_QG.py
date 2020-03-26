@@ -57,6 +57,7 @@ def get_model(point_cloud, is_training, num_class,global_pl,params,
 
     
     net, locals_transform, coefs= gap_block(k,n_heads,nn_idx,point_cloud,point_cloud,('filter0',params[2]),bn_decay,weight_decay,is_training,scname)
+    print('shape',net.get_shape())
 
     net = tf_util.conv2d(net, params[4], [1, 1], padding='VALID', stride=[1, 1], activation_fn=tf.nn.relu,
                          bn=True, is_training=is_training, scope='gapnet01'+scname, bn_decay=bn_decay)

@@ -119,14 +119,14 @@ def get_model(point_cloud, is_training, num_class,global_pl,params,
     net = tf_util.conv2d(net, params[8], [1, 1], padding='VALID', stride=[1, 1], 
                          activation_fn=tf.nn.relu,
                          bn=True, is_training=is_training, scope='agg'+scname, bn_decay=bn_decay)
-    net_tot = net
+    #net_tot = net
     net = tf_util.avg_pool2d(net, [num_point, 1], padding='VALID', scope='avgpool'+scname)
 
     expand = tf.tile(net, [1, num_point, 1, 1])
-    net = tf.concat(axis=3, values=[expand, 
-                                    net_tot,                                    
-                                ])
-    net = tf_util.conv2d(net, params[11], [1,1], padding='VALID', stride=[1,1], bn_decay=bn_decay,
+    # net = tf.concat(axis=3, values=[expand, 
+    #                                 net_tot,                                    
+    #                             ])
+    net = tf_util.conv2d(expand, params[11], [1,1], padding='VALID', stride=[1,1], bn_decay=bn_decay,
             bn=True, is_training=is_training, scope='seg/conv2', weight_decay=weight_decay, is_dist=True)
     net = tf_util.dropout(net, keep_prob=0.6, is_training=is_training, scope='seg/dp1')
     net = tf_util.conv2d(net, params[11], [1,1], padding='VALID', stride=[1,1], bn_decay=bn_decay,
