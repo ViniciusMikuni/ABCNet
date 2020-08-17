@@ -26,6 +26,7 @@ parser.add_argument('--gpu', type=int, default=0, help='GPU to use [default: GPU
 parser.add_argument('--model', default='gapnet_QG', help='Model name')
 parser.add_argument('--log_dir', default='log', help='Log dir [default: log]')
 parser.add_argument('--num_point', type=int, default=100, help='Point Number [default: 100]')
+parser.add_argument('--num_glob', type=int, default=2, help='Global parameters [default: 2]')
 parser.add_argument('--max_epoch', type=int, default=50, help='Epoch to run [default: 50]')
 parser.add_argument('--batch_size', type=int, default=64, help='Batch Size during training [default: 64]')
 parser.add_argument('--learning_rate', type=float, default=1e-3, help='Initial learning rate [default: 0.0001]')
@@ -50,6 +51,7 @@ params = ast.literal_eval(FLAGS.params)
 BATCH_SIZE = FLAGS.batch_size
 NUM_POINT = FLAGS.num_point
 NUM_FEAT = FLAGS.nfeat
+NUM_GLOB = FLAGS.num_glob
 NUM_CLASSES = FLAGS.ncat
 MAX_EPOCH = FLAGS.max_epoch
 BASE_LEARNING_RATE = FLAGS.learning_rate
@@ -110,7 +112,7 @@ def get_bn_decay(batch):
 def train():
     with tf.Graph().as_default():
         with tf.device('/gpu:'+str(GPU_INDEX)):
-            pointclouds_pl,  labels_pl, global_pl = MODEL.placeholder_inputs(BATCH_SIZE, NUM_POINT,NUM_FEAT) #REMEMBER I CHANGED THE ORDER
+            pointclouds_pl,  labels_pl, global_pl = MODEL.placeholder_inputs(BATCH_SIZE, NUM_POINT,NUM_FEAT,NUM_GLOB) 
             is_training_pl = tf.placeholder(tf.bool, shape=())
             
             # Note the global_step=batch parameter to minimize. 

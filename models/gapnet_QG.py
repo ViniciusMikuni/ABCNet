@@ -11,10 +11,10 @@ import tf_util
 from gat_layers import attn_feature
 
 
-def placeholder_inputs(batch_size, num_point, num_features):
+def placeholder_inputs(batch_size, num_point, num_features,num_glob):
     pointclouds_pl = tf.placeholder(tf.float32, shape=(batch_size, num_point, num_features))
     labels_pl = tf.placeholder(tf.int32, shape=(batch_size))
-    global_pl = tf.placeholder(tf.float32, shape=(batch_size,2)) #Im lazy
+    global_pl = tf.placeholder(tf.float32, shape=(batch_size,num_glob))
     return pointclouds_pl,  labels_pl,global_pl
 
 

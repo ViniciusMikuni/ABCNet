@@ -11,10 +11,10 @@ sys.path.append(os.path.join(BASE_DIR, '../models'))
 import tf_util
 from gat_layers import attn_feature
 
-def placeholder_inputs(batch_size, num_point, num_features):
+def placeholder_inputs(batch_size, num_point, num_features,num_glob):
     pointclouds_pl = tf.placeholder(tf.float32, shape=(batch_size, num_point, num_features))
     seg_pl = tf.placeholder(tf.int32, shape=(batch_size, num_point))
-    global_pl = tf.placeholder(tf.float32, shape=(batch_size,2)) #Im lazy
+    global_pl = tf.placeholder(tf.float32, shape=(batch_size,num_glob)) 
     return pointclouds_pl, seg_pl, global_pl
 
 
@@ -31,7 +31,6 @@ def gap_block(k,n_heads,nn_idx,net,point_cloud,edge_size,bn_decay,weight_decay,i
 
 
     neighbors_features = tf.concat(attns, axis=-1)
-    #xcoefs = tf.reduce_sum(neighbors_features,axis=-1)
     neighbors_features = tf.concat([tf.expand_dims(point_cloud, -2), neighbors_features], axis=-1)
 
     locals_transform = tf.reduce_max(tf.concat(local_features, axis=-1), axis=-2, keep_dims=True)
